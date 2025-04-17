@@ -3,6 +3,7 @@ package br.com.jfabiodev.APIScreenMatch.main;
 import br.com.jfabiodev.APIScreenMatch.model.DadosSerie;
 import br.com.jfabiodev.APIScreenMatch.model.DadosTemporada;
 import br.com.jfabiodev.APIScreenMatch.model.Serie;
+import br.com.jfabiodev.APIScreenMatch.repository.SerieRepository;
 import br.com.jfabiodev.APIScreenMatch.service.ConsumoAPI;
 import br.com.jfabiodev.APIScreenMatch.service.ConverteDados;
 
@@ -20,6 +21,11 @@ public class Main {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=f9173cff";
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+    private SerieRepository repository;
+
+    public Main(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -59,7 +65,8 @@ public class Main {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        repository.save(serie);
         System.out.println(dados);
     }
 
