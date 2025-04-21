@@ -1,9 +1,8 @@
 package br.com.jfabiodev.APIScreenMatch.model;
 
 import br.com.jfabiodev.APIScreenMatch.enums.Categoria;
-import com.fasterxml.jackson.annotation.JsonAlias;
+import br.com.jfabiodev.APIScreenMatch.service.ConsultaGemini;
 
-import java.util.Optional;
 import java.util.OptionalDouble;
 
 public class Serie {
@@ -22,7 +21,7 @@ public class Serie {
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
-        this.sinopse = dadosSerie.sinopse();
+        this.sinopse = ConsultaGemini.obterTraducao(dadosSerie.sinopse()).trim();
     }
 
     public String getSinopse() {

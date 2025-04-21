@@ -36,9 +36,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.theokanning.openai-gpt3-java</groupId>
-			<artifactId>service</artifactId>
-			<version>0.14.0</version>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-google-ai-gemini</artifactId>
+			<version>0.35.0</version>
 		</dependency>
 
 		<dependency>
