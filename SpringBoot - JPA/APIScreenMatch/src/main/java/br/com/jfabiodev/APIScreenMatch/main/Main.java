@@ -22,7 +22,7 @@ public class Main {
                 1 - Buscar séries
                 2 - Buscar episódios
                 
-                0 - Sair                                 
+                0 - Sair
                 """;
 
         System.out.println(menu);
