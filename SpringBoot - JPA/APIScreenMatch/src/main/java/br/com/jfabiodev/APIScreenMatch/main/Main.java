@@ -2,12 +2,15 @@ package br.com.jfabiodev.APIScreenMatch.main;
 
 import br.com.jfabiodev.APIScreenMatch.model.DadosSerie;
 import br.com.jfabiodev.APIScreenMatch.model.DadosTemporada;
+import br.com.jfabiodev.APIScreenMatch.model.Serie;
 import br.com.jfabiodev.APIScreenMatch.service.ConsumoAPI;
 import br.com.jfabiodev.APIScreenMatch.service.ConverteDados;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -81,6 +84,12 @@ public class Main {
     }
 
     private void listarSeriesBuscadas(){
-        dadosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                .map(Serie::new)
+                .collect(Collectors.toList());
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     };
 }
