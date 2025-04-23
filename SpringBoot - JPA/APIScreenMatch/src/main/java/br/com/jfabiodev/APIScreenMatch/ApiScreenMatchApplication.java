@@ -1,6 +1,7 @@
 package br.com.jfabiodev.APIScreenMatch;
 
 import br.com.jfabiodev.APIScreenMatch.main.Main;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ApiScreenMatchApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
+		Dotenv dotenv = Dotenv.load();
 		SpringApplication.run(ApiScreenMatchApplication.class, args);
 	}
 
