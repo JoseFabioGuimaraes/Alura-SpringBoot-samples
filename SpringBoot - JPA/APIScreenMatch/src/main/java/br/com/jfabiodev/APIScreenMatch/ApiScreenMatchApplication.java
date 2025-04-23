@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ApiScreenMatchApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		Dotenv dotenv = Dotenv.load();
 		SpringApplication.run(ApiScreenMatchApplication.class, args);
 	}
 
