@@ -2,13 +2,24 @@ package br.com.jfabiodev.APIScreenMatch.model;
 
 import br.com.jfabiodev.APIScreenMatch.enums.Categoria;
 import br.com.jfabiodev.APIScreenMatch.service.ConsultaGemini;
+import jakarta.persistence.*;
 
 import java.util.OptionalDouble;
 
+
+@Entity
+@Table(name = "Serie")
 public class Serie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String titulo;
     private Integer totalTemporadas;
     private Double avaliacao;
+    @Enumerated(EnumType.STRING)
     private Categoria genero;
     private String atores;
     private String poster;
@@ -22,6 +33,14 @@ public class Serie {
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
         this.sinopse = ConsultaGemini.obterTraducao(dadosSerie.sinopse()).trim();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSinopse() {
