@@ -21,7 +21,7 @@ public class Main {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=f9173cff";
     private List<DadosSerie> dadosSeries = new ArrayList<>();
-    private SerieRepository repository;
+    private final SerieRepository repository;
 
     public Main(SerieRepository repository) {
         this.repository = repository;
@@ -91,10 +91,7 @@ public class Main {
     }
 
     private void listarSeriesBuscadas(){
-        List<Serie> series = new ArrayList<>();
-        series = dadosSeries.stream()
-                .map(Serie::new)
-                .collect(Collectors.toList());
+        List<Serie> series = repository.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
