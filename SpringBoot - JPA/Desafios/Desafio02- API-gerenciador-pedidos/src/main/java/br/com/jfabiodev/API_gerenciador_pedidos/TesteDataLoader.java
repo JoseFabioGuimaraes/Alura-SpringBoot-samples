@@ -6,7 +6,6 @@ import br.com.jfabiodev.API_gerenciador_pedidos.pedido.model.Pedido;
 import br.com.jfabiodev.API_gerenciador_pedidos.pedido.repository.PedidoRepository;
 import br.com.jfabiodev.API_gerenciador_pedidos.produto.model.Produto;
 import br.com.jfabiodev.API_gerenciador_pedidos.produto.repository.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
