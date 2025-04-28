@@ -1,9 +1,9 @@
 package br.com.jfabiodev.API_gerenciador_pedidos.categoria.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.jfabiodev.API_gerenciador_pedidos.produto.model.Produto;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Categoria {
@@ -12,6 +12,9 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private final String nome;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Produto> produtos;
 
     public Categoria(String nome) {
         this.nome = nome;
@@ -23,5 +26,13 @@ public class Categoria {
 
     public String getNome() {
         return nome;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }
