@@ -1,6 +1,7 @@
 package br.com.jfabiodev.API_gerenciador_pedidos.produto.model;
 
 import br.com.jfabiodev.API_gerenciador_pedidos.categoria.model.Categoria;
+import br.com.jfabiodev.API_gerenciador_pedidos.fornecedor.model.Fornecedor;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
@@ -17,7 +18,11 @@ public class Produto {
     private String nome;
     @Column(name = "valor")
     private Double preco;
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
 
+    public Produto(){}
     public Produto(String nome, Double preco, Categoria categoria) {
         this.nome = nome;
         this.preco = preco;
@@ -48,4 +53,17 @@ public class Produto {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
 }

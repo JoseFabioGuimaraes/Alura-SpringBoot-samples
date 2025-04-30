@@ -11,10 +11,12 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private final String nome;
+    private String nome;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Produto> produtos;
+
+    public Categoria(){}
 
     public Categoria(String nome) {
         this.nome = nome;
