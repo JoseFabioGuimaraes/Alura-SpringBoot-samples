@@ -34,7 +34,8 @@ public class Main {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Listar séries Buscadas
-                                    
+                    4 - Buscar série por titulo
+                    
                     0 - Sair
                     """;
 
@@ -53,6 +54,9 @@ public class Main {
                 case 3:
                     listarSeriesBuscadas();
                     break;
+                case 4:
+                    buscarSeriePorTitulo();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -61,6 +65,7 @@ public class Main {
             }
         }
     }
+
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
@@ -81,9 +86,7 @@ public class Main {
         listarSeriesBuscadas();
         System.out.println("Escolha uma série do nosso catálogo");
         var nomeSerie = leitura.nextLine();
-        Optional<Serie> serie = series.stream()
-                .filter(s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
-                .findFirst();
+        Optional<Serie> serie = repository.findByTituloContainingIgnoreCase(nomeSerie);
 
 
         if (serie.isPresent()) {
@@ -102,15 +105,29 @@ public class Main {
                     .collect(Collectors.toList());
             serieEncontrada.setEpisodios(episodios);
             repository.save(serieEncontrada);
-        }else{
+        } else {
             System.out.println("NOT FOUND");
         }
     }
 
-    private void listarSeriesBuscadas(){
+    private void listarSeriesBuscadas() {
         series = repository.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
-    };
+    }
+
+    ;
+
+    private void buscarSeriePorTitulo() {
+        System.out.println("Escolha uma série do nosso catálogo");
+        var nomeSerie = leitura.nextLine();
+
+        Optional<Serie> serieBuscada = repository.findByTituloContainingIgnoreCase(nomeSerie);
+        if (serieBuscada.isPresent()){
+            System.out.println("Dados da série: " + serieBuscada.get());
+        } else {
+            System.out.println("Série não encontrada");
+        }
+    }
 }
