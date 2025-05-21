@@ -1,5 +1,6 @@
 package br.com.jfabiodev.APIScreenMatch.main;
 
+import br.com.jfabiodev.APIScreenMatch.enums.Categoria;
 import br.com.jfabiodev.APIScreenMatch.model.DadosSerie;
 import br.com.jfabiodev.APIScreenMatch.model.DadosTemporada;
 import br.com.jfabiodev.APIScreenMatch.model.Episodio;
@@ -37,6 +38,7 @@ public class Main {
                     4 - Buscar série por titulo
                     5 - Buscar séries por ator
                     6 - Top 5 series por Avaliação
+                    7 - Buscar por categorias
                     
                     0 - Sair
                     """;
@@ -64,6 +66,9 @@ public class Main {
                     break;
                 case 6:
                     buscarTop5Series();
+                    break;
+                case 7:
+                    buscarSeriesPorCategoria();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -152,5 +157,13 @@ public class Main {
         List<Serie> seriesTop5 = repository.findTop5ByOrderByAvaliacaoDesc();
         System.out.println("Top 5 series por avaliação: ");
         seriesTop5.forEach(s -> System.out.println("Titulo: " + s.getTitulo() + ",Avaliação: " + s.getAvaliacao()));
+    }
+    private void buscarSeriesPorCategoria(){
+        System.out.println("Qual gênero você deseja buscar? ");
+        var nomeGenero = leitura.nextLine();
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+        List<Serie> seriesPorCategoria = repository.findByGenero(categoria);
+        System.out.printf("Series da categoria %s encontradas:\n ",categoria);
+        seriesPorCategoria.forEach(s -> System.out.println("Titulo: " + s.getTitulo() + ", Avaliação: " + s.getAvaliacao()));
     }
 }
