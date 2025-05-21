@@ -19,6 +19,6 @@ public class ApiGerenciadorPedidosApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		testeDataLoader.principal();
+		//testeDataLoader.principal();
 	}
 }
