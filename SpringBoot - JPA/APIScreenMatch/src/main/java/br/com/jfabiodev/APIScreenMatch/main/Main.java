@@ -175,7 +175,7 @@ public class Main {
         var numeroTemporadas = leitura.nextInt();
         System.out.println("Agora digite a quantidade a avaliação (maior ou igual a): ");
         var avaliacao = leitura.nextDouble();
-        List<Serie> seriesNumeroTemporadasEAvaliacao = repository.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(numeroTemporadas,avaliacao);
+        List<Serie> seriesNumeroTemporadasEAvaliacao = repository.seriesPorTemporadaEAvaliacao(numeroTemporadas,avaliacao);
         seriesNumeroTemporadasEAvaliacao.forEach(s -> System.out.println(s.getTitulo() + " Avaliação: " + s.getAvaliacao()));
     }
 }
