@@ -2,6 +2,7 @@ package br.com.jfabiodev.API_gerenciador_pedidos.pedido.repository;
 
 import br.com.jfabiodev.API_gerenciador_pedidos.pedido.model.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -16,6 +17,8 @@ public interface PedidoRepository extends JpaRepository<Pedido,Long> {
     List<Pedido> findByDataPedidoBefore (LocalDate data);
     List<Pedido> findByDataPedidoBetween (LocalDate dataInicial, LocalDate dataFinal);
 
-
+    //DESAFIO 2:
+    @Query("SELECT p FROM Pedido p WHERE p.data BETWEEN :dataInicio AND :dataFinal")
+    List<Pedido> retornaPedidosEntreDatas(LocalDate dataInicio, LocalDate dataFinal);
 
 }
