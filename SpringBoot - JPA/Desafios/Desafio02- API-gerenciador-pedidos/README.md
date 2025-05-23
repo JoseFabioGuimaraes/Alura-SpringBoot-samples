@@ -1,4 +1,3 @@
-
 # Order Management API
 
 A REST API built with Spring Boot for managing orders, products, categories, and suppliers.
@@ -12,10 +11,9 @@ A REST API built with Spring Boot for managing orders, products, categories, and
 - Maven
 - Hibernate
 
-
 ## 📋 Project Description
 
-This API provides a complete solution for order management with relationships between products, categories and suppliers.
+This API provides a complete solution for order management with relationships between products, categories, and suppliers.
 
 ## 🏗 Architecture
 
@@ -71,12 +69,13 @@ SPRING_DATASOURCE_PASSWORD=pass
 ## ⚙️ Key Features
 
 - CRUD operations for all entities
-- Automatic data loading for testing through TesteDataLoader
+- Automatic data loading for testing through `TesteDataLoader`
 - Validation for duplicate products
 - Bidirectional relationships between entities
 - Transaction management
 - Lazy loading for better performance
 - Cascade operations where appropriate
+- Advanced queries using JPQL and native SQL
 
 ## 🗄️ Repositories
 
@@ -86,6 +85,23 @@ The project implements JPA repositories for all entities:
 - `FornecedorRepository`
 - `ProdutoRepository`
 - `PedidoRepository`
+
+### Custom Queries
+
+#### `ProdutoRepository`
+- Find products by name, category, or price ranges.
+- Advanced queries:
+    - Products with price greater than a value.
+    - Products ordered by price (ascending/descending).
+    - Products starting with a specific letter (PostgreSQL-specific `ILIKE` query).
+    - Average and maximum price calculations.
+    - Count products by category.
+    - Categories with more than a specific number of products.
+    - Native query for top 5 most expensive products.
+
+#### `PedidoRepository`
+- Find orders by date ranges.
+- Custom query to retrieve orders between specific dates.
 
 ## 🚀 Running the Project
 
@@ -105,7 +121,6 @@ The application uses PostgreSQL with the following settings:
 spring.jpa.hibernate.ddl-auto=update
 spring.datasource.driver-class-name=org.postgresql.Driver
 ```
-
 
 ## 🔐 Data Validation
 
