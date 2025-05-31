@@ -2,7 +2,7 @@ package br.com.jfabiodev.APIScreenMatch.dto;
 
 import br.com.jfabiodev.APIScreenMatch.enums.Categoria;
 
-public record SerieDTO(Long Id,
+public record SerieDTO(Long id,
                        String titulo,
                        Integer totalTemporadas,
                        Double avaliacao,

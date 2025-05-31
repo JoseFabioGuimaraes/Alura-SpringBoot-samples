@@ -1,5 +1,6 @@
 package br.com.jfabiodev.APIScreenMatch.controller;
 
+import br.com.jfabiodev.APIScreenMatch.dto.EpisodioDTO;
 import br.com.jfabiodev.APIScreenMatch.dto.SerieDTO;
 import br.com.jfabiodev.APIScreenMatch.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,24 @@ public class SerieController {
         return service.getSerieById(id);
     }
 
+    @GetMapping("/{id}/temporadas/todas")
+    public List<EpisodioDTO> getAllSeason(@PathVariable Long id){
+        return service.getAllSeason(id);
+    }
+
+    @GetMapping("/{id}/temporadas/{numero}")
+    public List<EpisodioDTO> getEpisodeBySeason(@PathVariable Long id, @PathVariable Long numero){
+        return service.getEpisodeBySeason(id, numero);
+    }
+
+    @GetMapping("/categoria/{genero}")
+    public List<SerieDTO> getSerieByGender(@PathVariable String genero){
+        return service.getSerieByGender(genero);
+    }
+
+    @GetMapping("/{id}/temporadas/top")
+    public List<EpisodioDTO> getTop5Episodes(@PathVariable Long id){
+        return service.getTop5Episodes(id);
+    }
 
 }
