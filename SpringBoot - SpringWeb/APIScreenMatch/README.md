@@ -39,6 +39,24 @@ APIScreenMatch is a Java-based application built with Spring Boot that allows us
 - An OMDB API key
 - A Google Gemini API key
 
+## Environment Variables
+
+Create a `.env` file in the root directory with the following content:
+
+```dotenv
+# Google Gemini API key for synopses translation
+GEMINI_API_KEY=your_google_gemini_api_key
+
+# PostgreSQL database configuration
+SPRING_DATASOURCE_HOST=localhost
+SPRING_DATASOURCE_NAME=screenmatch
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=your_postgres_password
+
+# Optional: Add your OMDB API key here instead of hardcoding it
+# OMDB_API_KEY=your_omdb_api_key
+```
+
 ## Setup Instructions
 
 1.  **Clone the repository:**
@@ -48,34 +66,17 @@ APIScreenMatch is a Java-based application built with Spring Boot that allows us
     ```
 
 2.  **Configure Environment Variables:**
-    Create a `.env` file in the root directory of the project with the following content, replacing placeholder values with your actual credentials:
-    ```dotenv
-    GEMINI_API_KEY=your_google_gemini_api_key
-    SPRING_DATASOURCE_HOST=localhost
-    SPRING_DATASOURCE_NAME=your_database_name 
-    SPRING_DATASOURCE_USERNAME=your_postgres_username
-    SPRING_DATASOURCE_PASSWORD=your_postgres_password
-    ```
-    *   `GEMINI_API_KEY`: Your API key for Google Gemini.
-    *   `SPRING_DATASOURCE_HOST`: The host of your PostgreSQL server (e.g., `localhost`).
-    *   `SPRING_DATASOURCE_NAME`: The name of your PostgreSQL database (e.g., `screenmatch-alura`).
-    *   `SPRING_DATASOURCE_USERNAME`: Your PostgreSQL username.
-    *   `SPRING_DATASOURCE_PASSWORD`: Your PostgreSQL password.
+    Create a `.env` file as shown in the Environment Variables section above.
 
 3.  **Configure OMDB API Key:**
     The OMDB API key is currently hardcoded in the `src/main/java/br/com/jfabiodev/APIScreenMatch/main/Main.java` file:
     ```java
-    private final String API_KEY = "&apikey=f9173cff"; 
+    private final String API_KEY = "&apikey=x";
     ```
-    Replace `"f9173cff"` with your personal OMDB API key. For better practice, consider externalizing this key to the `.env` file and reading it similarly to how `GEMINI_API_KEY` is handled.
+    Replace `"x"` with your personal OMDB API key.
 
 4.  **Verify `application.properties`:**
-    Ensure `src/main/resources/application.properties` is configured to use these environment variables. The relevant datasource configuration should look like this:
-    ```properties
-    spring.datasource.url=jdbc:postgresql://${SPRING_DATASOURCE_HOST}/${SPRING_DATASOURCE_NAME}
-    spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
-    spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
-    ```
+    Ensure the application properties are configured to use the environment variables.
 
 5.  **Build the project:**
     ```bash
@@ -90,8 +91,8 @@ APIScreenMatch is a Java-based application built with Spring Boot that allows us
 
 ## API Integration
 
--   **OMDB API**: Used to fetch detailed information about TV series and their episodes. The API key needs to be configured as mentioned in the Setup Instructions.
--   **Google Gemini AI API**: Used for translating series synopses from English to Portuguese. Requires a `GEMINI_API_KEY` in the `.env` file.
+-   **OMDB API**: Used to fetch detailed information about TV series and their episodes.
+-   **Google Gemini AI API**: Used for translating series synopses from English to Portuguese.
 
 ## Database Configuration
 
@@ -107,29 +108,37 @@ APIScreenMatch/
 ├── .env                            # Environment variables (you need to create this)
 ├── pom.xml                         # Maven project configuration
 └── src/
-└── main/
-├── java/
-│   └── br/com/jfabiodev/APIScreenMatch/
-│       ├── ApiScreenMatchApplication.java  # Spring Boot main application class
-│       ├── enums/
-│       │   └── Categoria.java            # Enum for series categories
-│       ├── main/
-│       │   └── Main.java                 # Main CLI interaction logic
-│       ├── model/                      # Data Transfer Objects (DTOs) and JPA Entities
-│       │   ├── DadosEpisodio.java
-│       │   ├── DadosSerie.java
-│       │   ├── DadosTemporada.java
-│       │   ├── Episodio.java             # JPA Entity for Episode
-│       │   └── Serie.java                # JPA Entity for Serie
-│       ├── repository/
-│       │   └── SerieRepository.java      # Spring Data JPA repository for Serie
-│       └── service/
-│           ├── ConsultaGemini.java       # Service for Google Gemini API
-│           ├── ConsumoAPI.java           # Service for consuming external APIs (OMDB)
-│           ├── ConverteDados.java        # Service for JSON data conversion
-│           └── IConverteDados.java       # Interface for data conversion
-└── resources/
-└── application.properties      # Spring Boot application configuration
+    └── main/
+        ├── java/
+        │   └── br/com/jfabiodev/APIScreenMatch/
+        │       ├── ApiScreenMatchApplication.java  # Spring Boot main application class
+        │       ├── config/
+        │       │   └── CorsConfiguration.java      # CORS configuration
+        │       ├── controller/
+        │       │   └── SerieController.java        # REST controller for series
+        │       ├── dto/
+        │       │   ├── EpisodioDTO.java           # DTO for episodes
+        │       │   └── SerieDTO.java              # DTO for series
+        │       ├── enums/
+        │       │   └── Categoria.java            # Enum for series categories
+        │       ├── main/
+        │       │   └── Main.java                 # Main CLI interaction logic
+        │       ├── model/                      # DTOs and JPA Entities
+        │       │   ├── DadosEpisodio.java
+        │       │   ├── DadosSerie.java
+        │       │   ├── DadosTemporada.java
+        │       │   ├── Episodio.java             # JPA Entity for Episode
+        │       │   └── Serie.java                # JPA Entity for Serie
+        │       ├── repository/
+        │       │   └── SerieRepository.java      # Spring Data JPA repository for Serie
+        │       └── service/
+        │           ├── ConsultaGemini.java       # Service for Google Gemini API
+        │           ├── ConsumoAPI.java           # Service for consuming external APIs (OMDB)
+        │           ├── ConverteDados.java        # Service for JSON data conversion
+        │           ├── IConverteDados.java       # Interface for data conversion
+        │           └── SerieService.java         # Business logic service
+        └── resources/
+            └── application.properties      # Spring Boot application configuration
 ```
 
 ## Usage
@@ -140,7 +149,6 @@ APIScreenMatch/
 4.  Follow the on-screen prompts to provide necessary inputs.
 5.  Searched series and their episodes (if fetched) are automatically saved to the PostgreSQL database for future queries.
 
-## AUTOR
-```
+## Author
+
 José Fábio Guimarães
-```
