@@ -13,8 +13,12 @@ import java.util.stream.Collectors;
 @Service
 public class FraseService {
 
-    @Autowired
-    private FraseRepository repository;
+
+    private final FraseRepository repository;
+
+    public FraseService(FraseRepository repository){
+        this.repository=repository;
+    }
 
     public FraseDTO getFrase() {
         Frase frase = repository.getRandomFrase();

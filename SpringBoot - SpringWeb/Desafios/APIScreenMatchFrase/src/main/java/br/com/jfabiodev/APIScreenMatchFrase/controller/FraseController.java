@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FraseController {
 
-    @Autowired
-    private FraseService service;
+
+    private final FraseService service;
+
+    public FraseController(FraseService service){
+        this.service= service;
+    }
 
     @GetMapping("/series/frases")
     public FraseDTO getFrase(){
